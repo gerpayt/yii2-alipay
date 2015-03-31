@@ -13,7 +13,7 @@
             "name": "Chen Feng",
             "email": "gerpayt@qq.com",
             "homepage": "http://blog.gerpayt.cn"
-        },
+        }
     ],
     "require": {
         "php": ">=5.4.0",
