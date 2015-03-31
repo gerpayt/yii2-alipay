@@ -9,7 +9,7 @@
  * 该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
  */
 
-namespace gerpayt\yii2_alipay\lib;
+namespace gerpayt\yii2_alipay;
 
 class AlipayMD5 {
 

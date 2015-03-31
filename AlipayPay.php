@@ -1,7 +1,7 @@
 <?php
 
 namespace gerpayt\yii2_alipay;
-use gerpayt\yii2_alipay\lib\AlipaySubmit;
+use gerpayt\yii2_alipay\AlipaySubmit;
 
 class AlipayPay
 {
@@ -58,6 +58,8 @@ class AlipayPay
      */
     public $return_url = '';
 
+    public $extra_common_param = '';
+
     /**
      * @name requestPay
      * @desc
@@ -66,6 +68,7 @@ class AlipayPay
      * @param $total_fee String 付款金额
      * @param $body String 订单描述
      * @param $show_url String 商品展示地址
+     * @return String 跳转HTML
      */
     public function requestPay($out_trade_no, $subject, $total_fee, $body, $show_url)
     {
@@ -97,26 +100,39 @@ class AlipayPay
                 "total_fee"	=> $total_fee,
                 "body"	=> $body,
                 "show_url"	=> $show_url,
+                "extra_common_param"	=> $this->extra_common_param,
                 "anti_phishing_key"	=> $anti_phishing_key,
                 "exter_invoke_ip"	=> $exter_invoke_ip,
                 "_input_charset"	=> trim(strtolower($this->input_charset))
         );
 
+        //建立请求
+        $alipaySubmit = new AlipaySubmit($this->bulidConfig());
+        $html_text = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
+        return $html_text;
+
+    }
+
+    public function verifyReturn()
+    {
+        $alipayNotify = new AlipayNotify($this->bulidConfig());
+        $verify_result = $alipayNotify->verifyReturn();
+
+        return $verify_result;
+    }
+
+    private function bulidConfig()
+    {
         //构造要请求的配置数组
         $alipay_config = array(
-                'partner' => $this->partner,
-                'seller_email'	=> $this->seller_email,
-                'key' => $this->key,
-                'sign_type' => $this->sign_type,
-                'input_charset'=> $this->input_charset,
-                'cacert' => $this->cacert,
-                'transport' => $this->transport,
+            'partner' => $this->partner,
+            'seller_email'	=> $this->seller_email,
+            'key' => $this->key,
+            'sign_type' => $this->sign_type,
+            'input_charset'=> $this->input_charset,
+            'cacert' => $this->cacert,
+            'transport' => $this->transport,
         );
-
-        //建立请求
-        $alipaySubmit = new AlipaySubmit($alipay_config);
-        $html_text = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
-        echo $html_text;
-
+        return $alipay_config;
     }
 }

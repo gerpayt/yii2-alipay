@@ -10,10 +10,10 @@
  * 该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
  */
 
-namespace gerpayt\yii2_alipay\lib;
+namespace gerpayt\yii2_alipay;
 
-use gerpayt\yii2_alipay\lib\AlipayCore;
-use gerpayt\yii2_alipay\lib\AlipayMd5;
+use gerpayt\yii2_alipay\AlipayCore;
+use gerpayt\yii2_alipay\AlipayMD5;
 
 class AlipaySubmit {
 

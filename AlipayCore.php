@@ -9,7 +9,8 @@
  * 该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
  */
 
-namespace gerpayt\yii2_alipay\lib;
+namespace gerpayt\yii2_alipay;
+use Yii;
 
 class AlipayCore {
 
@@ -130,12 +131,14 @@ class AlipayCore {
      * @return String 远程输出的数据
      */
     public static function getHttpResponseGET($url,$cacert_url) {
+        $cacert_url = Yii::getAlias('@gerpayt/yii2_alipay').'/'.$cacert_url;
+
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, 0 ); // 过滤HTTP头
         curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
-        curl_setopt($curl, CURLOPT_CAINFO,$cacert_url);//证书地址
+        curl_setopt($curl, CURLOPT_CAINFO, $cacert_url);//证书地址
         $responseText = curl_exec($curl);
         //var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
         curl_close($curl);
