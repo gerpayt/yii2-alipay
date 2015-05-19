@@ -32,13 +32,13 @@
                     "url": "git://github.com/gerpayt/yii2-alipay.git",
                     "type": "git",
                     "reference": "master"
-                },
-                "autoload": {
-                    "psr-0" : {
-                        "gerpayt\\yii2-alipay" : ""
-                    }
                 }
             }
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "gerpayt\\yii2-alipay" : ""
+        }
+    }
 }
