@@ -113,6 +113,14 @@ class AlipayPay
 
     }
 
+    public function verifyNotify()
+    {
+        $alipayNotify = new AlipayNotify($this->bulidConfig());
+        $verify_result = $alipayNotify->verifyNotify();
+
+        return $verify_result;
+    }
+
     public function verifyReturn()
     {
         $alipayNotify = new AlipayNotify($this->bulidConfig());
